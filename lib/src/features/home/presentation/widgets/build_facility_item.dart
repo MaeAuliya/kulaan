@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nsvilecity/src/features/home/presentation/views/atm_view.dart';
+import 'package:nsvilecity/src/features/home/presentation/views/hospital_view.dart';
 import 'package:nsvilecity/src/features/home/presentation/views/mosque_view.dart';
+import 'package:nsvilecity/src/features/home/presentation/views/police_view.dart';
 import 'package:nsvilecity/src/features/home/presentation/views/spbu_view.dart';
 
 class BuildFacilityItem extends StatelessWidget {
@@ -29,22 +32,22 @@ class BuildFacilityItem extends StatelessWidget {
             );
           }
           if (name == 'ATM') {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const AtmuView()),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AtmView()),
+            );
           }
           if (name == 'Rumah Sakit') {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const RsView()),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HospitalView()),
+            );
           }
           if (name == 'Kantor Polisi') {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const PolisiView()),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const PoliceView()),
+            );
           }
         },
       ),

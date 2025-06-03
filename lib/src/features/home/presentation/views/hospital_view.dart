@@ -6,14 +6,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 
-class MosqueView extends StatefulWidget {
-  const MosqueView({super.key});
+class HospitalView extends StatefulWidget {
+  const HospitalView({super.key});
 
   @override
-  State<MosqueView> createState() => _MosqueViewState();
+  State<HospitalView> createState() => _HospitalViewState();
 }
 
-class _MosqueViewState extends State<MosqueView> {
+class _HospitalViewState extends State<HospitalView> {
   MapController? _mapController;
   LatLng? _currentPosition;
   List<Map<String, dynamic>> _spbuList = [];
@@ -86,7 +86,7 @@ class _MosqueViewState extends State<MosqueView> {
 
   Future<void> _fetchNearbySpbu(double latitude, double longitude) async {
     final String mapboxUrl =
-        'https://api.mapbox.com/search/searchbox/v1/category/mosque?access_token=$mapboxAccessToken&language=en&limit=10&proximity=$longitude,$latitude';
+        'https://api.mapbox.com/search/searchbox/v1/category/hospital?access_token=$mapboxAccessToken&language=en&limit=10&proximity=$longitude,$latitude';
 
     try {
       final response = await http.get(Uri.parse(mapboxUrl));
