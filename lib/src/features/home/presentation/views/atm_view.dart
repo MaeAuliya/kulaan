@@ -16,7 +16,7 @@ class AtmView extends StatefulWidget {
 class _AtmViewState extends State<AtmView> {
   MapController? _mapController;
   LatLng? _currentPosition;
-  List<Map<String, dynamic>> _spbuList = [];
+  List<Map<String, dynamic>> _atmList = [];
 
   final String mapboxAccessToken = 'pk.eyJ1IjoieW9raXNpdHVtb3JhbmciLCJhIjoiY20xMDlpdnlkMGR5NjJrc2c4dmxzb3c5MCJ9.0U2bCqI_zoIMg4YKtISrCw';
 
@@ -73,7 +73,7 @@ class _AtmViewState extends State<AtmView> {
           _currentPosition = LatLng(position.latitude, position.longitude);
         });
         // _mapController?.move(_currentPosition!, 14.0);
-        _fetchNearbySpbu(position.latitude, position.longitude);
+        _fetchNearbyAtm(position.latitude, position.longitude);
       }
     } catch (e) {
       if (mounted) {
@@ -84,7 +84,7 @@ class _AtmViewState extends State<AtmView> {
     }
   }
 
-  Future<void> _fetchNearbySpbu(double latitude, double longitude) async {
+  Future<void> _fetchNearbyAtm(double latitude, double longitude) async {
     final String mapboxUrl =
         'https://api.mapbox.com/search/searchbox/v1/category/atm?access_token=$mapboxAccessToken&language=en&limit=10&proximity=$longitude,$latitude';
 
@@ -96,9 +96,9 @@ class _AtmViewState extends State<AtmView> {
         final List<dynamic> features = data['features'];
 
         setState(() {
-          _spbuList = features.map((e) {
+          _atmList = features.map((e) {
             return {
-              'name': e['properties']['name'] ?? 'SPBU Tanpa Nama',
+              'name': e['properties']['name'] ?? 'ATM Tanpa Nama',
               'latitude': e['geometry']['coordinates'][1] as double,
               'longitude': e['geometry']['coordinates'][0] as double,
             };
@@ -107,14 +107,14 @@ class _AtmViewState extends State<AtmView> {
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Gagal mengambil data SPBU')),
+            const SnackBar(content: Text('Gagal mengambil data ATM')),
           );
         }
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error mengambil data SPBU: $e')),
+          SnackBar(content: Text('Error mengambil data ATM: $e')),
         );
       }
     }
@@ -125,7 +125,7 @@ class _AtmViewState extends State<AtmView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Nearby SPBU',
+          'Nearby ATM',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blue,
@@ -157,17 +157,17 @@ class _AtmViewState extends State<AtmView> {
                         size: 40,
                       ),
                     ),
-                    ..._spbuList.map((spbu) {
+                    ..._atmList.map((atm) {
                       return Marker(
-                        point: LatLng(spbu['latitude'], spbu['longitude']),
+                        point: LatLng(atm['latitude'], atm['longitude']),
                         child: GestureDetector(
                           onTap: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(spbu['name'])),
+                              SnackBar(content: Text(atm['name'])),
                             );
                           },
                           child: const Icon(
-                            Icons.local_gas_station,
+                            Icons.atm,
                             color: Colors.blue,
                             size: 40,
                           ),

@@ -16,7 +16,7 @@ class HospitalView extends StatefulWidget {
 class _HospitalViewState extends State<HospitalView> {
   MapController? _mapController;
   LatLng? _currentPosition;
-  List<Map<String, dynamic>> _spbuList = [];
+  List<Map<String, dynamic>> _hospitalList = [];
 
   final String mapboxAccessToken = 'pk.eyJ1IjoieW9raXNpdHVtb3JhbmciLCJhIjoiY20xMDlpdnlkMGR5NjJrc2c4dmxzb3c5MCJ9.0U2bCqI_zoIMg4YKtISrCw';
 
@@ -73,7 +73,7 @@ class _HospitalViewState extends State<HospitalView> {
           _currentPosition = LatLng(position.latitude, position.longitude);
         });
         // _mapController?.move(_currentPosition!, 14.0);
-        _fetchNearbySpbu(position.latitude, position.longitude);
+        _fetchNearbyHospital(position.latitude, position.longitude);
       }
     } catch (e) {
       if (mounted) {
@@ -84,7 +84,7 @@ class _HospitalViewState extends State<HospitalView> {
     }
   }
 
-  Future<void> _fetchNearbySpbu(double latitude, double longitude) async {
+  Future<void> _fetchNearbyHospital(double latitude, double longitude) async {
     final String mapboxUrl =
         'https://api.mapbox.com/search/searchbox/v1/category/hospital?access_token=$mapboxAccessToken&language=en&limit=10&proximity=$longitude,$latitude';
 
@@ -96,9 +96,9 @@ class _HospitalViewState extends State<HospitalView> {
         final List<dynamic> features = data['features'];
 
         setState(() {
-          _spbuList = features.map((e) {
+          _hospitalList = features.map((e) {
             return {
-              'name': e['properties']['name'] ?? 'SPBU Tanpa Nama',
+              'name': e['properties']['name'] ?? 'Hospital Tanpa Nama',
               'latitude': e['geometry']['coordinates'][1] as double,
               'longitude': e['geometry']['coordinates'][0] as double,
             };
@@ -107,14 +107,14 @@ class _HospitalViewState extends State<HospitalView> {
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Gagal mengambil data SPBU')),
+            const SnackBar(content: Text('Gagal mengambil data Hospital')),
           );
         }
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error mengambil data SPBU: $e')),
+          SnackBar(content: Text('Error mengambil data Hospital: $e')),
         );
       }
     }
@@ -125,7 +125,7 @@ class _HospitalViewState extends State<HospitalView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Nearby SPBU',
+          'Nearby Hospital',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blue,
@@ -157,17 +157,17 @@ class _HospitalViewState extends State<HospitalView> {
                         size: 40,
                       ),
                     ),
-                    ..._spbuList.map((spbu) {
+                    ..._hospitalList.map((hospital) {
                       return Marker(
-                        point: LatLng(spbu['latitude'], spbu['longitude']),
+                        point: LatLng(hospital['latitude'], hospital['longitude']),
                         child: GestureDetector(
                           onTap: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(spbu['name'])),
+                              SnackBar(content: Text(hospital['name'])),
                             );
                           },
                           child: const Icon(
-                            Icons.local_gas_station,
+                            Icons.local_hospital,
                             color: Colors.blue,
                             size: 40,
                           ),

@@ -16,7 +16,7 @@ class PoliceView extends StatefulWidget {
 class _PoliceViewState extends State<PoliceView> {
   MapController? _mapController;
   LatLng? _currentPosition;
-  List<Map<String, dynamic>> _spbuList = [];
+  List<Map<String, dynamic>> _policeList = [];
 
   final String mapboxAccessToken = 'pk.eyJ1IjoieW9raXNpdHVtb3JhbmciLCJhIjoiY20xMDlpdnlkMGR5NjJrc2c4dmxzb3c5MCJ9.0U2bCqI_zoIMg4YKtISrCw';
 
@@ -73,7 +73,7 @@ class _PoliceViewState extends State<PoliceView> {
           _currentPosition = LatLng(position.latitude, position.longitude);
         });
         // _mapController?.move(_currentPosition!, 14.0);
-        _fetchNearbySpbu(position.latitude, position.longitude);
+        _fetchNearbyPolice(position.latitude, position.longitude);
       }
     } catch (e) {
       if (mounted) {
@@ -84,7 +84,7 @@ class _PoliceViewState extends State<PoliceView> {
     }
   }
 
-  Future<void> _fetchNearbySpbu(double latitude, double longitude) async {
+  Future<void> _fetchNearbyPolice(double latitude, double longitude) async {
     final String mapboxUrl =
         'https://api.mapbox.com/search/searchbox/v1/category/police_station?access_token=$mapboxAccessToken&language=en&limit=10&proximity=$longitude,$latitude';
 
@@ -96,9 +96,9 @@ class _PoliceViewState extends State<PoliceView> {
         final List<dynamic> features = data['features'];
 
         setState(() {
-          _spbuList = features.map((e) {
+          _policeList = features.map((e) {
             return {
-              'name': e['properties']['name'] ?? 'SPBU Tanpa Nama',
+              'name': e['properties']['name'] ?? 'Police Tanpa Nama',
               'latitude': e['geometry']['coordinates'][1] as double,
               'longitude': e['geometry']['coordinates'][0] as double,
             };
@@ -107,14 +107,14 @@ class _PoliceViewState extends State<PoliceView> {
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Gagal mengambil data SPBU')),
+            const SnackBar(content: Text('Gagal mengambil data Police')),
           );
         }
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error mengambil data SPBU: $e')),
+          SnackBar(content: Text('Error mengambil data Polic: $e')),
         );
       }
     }
@@ -125,7 +125,7 @@ class _PoliceViewState extends State<PoliceView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Nearby SPBU',
+          'Nearby Police Station',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blue,
@@ -157,17 +157,17 @@ class _PoliceViewState extends State<PoliceView> {
                         size: 40,
                       ),
                     ),
-                    ..._spbuList.map((spbu) {
+                    ..._policeList.map((police) {
                       return Marker(
-                        point: LatLng(spbu['latitude'], spbu['longitude']),
+                        point: LatLng(police['latitude'], police['longitude']),
                         child: GestureDetector(
                           onTap: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(spbu['name'])),
+                              SnackBar(content: Text(police['name'])),
                             );
                           },
                           child: const Icon(
-                            Icons.local_gas_station,
+                            Icons.local_police,
                             color: Colors.blue,
                             size: 40,
                           ),

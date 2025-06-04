@@ -8,7 +8,29 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return WillPopScope(
+      onWillPop: () async {
+        bool shouldPop = await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Konfirmasi'),
+            content: const Text('Apakah Anda yakin ingin keluar?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Tidak'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Ya'),
+              ),
+            ],
+          ),
+        );
+
+        return shouldPop;
+      },
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,6 +53,7 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
-      );
+      ),
+    );
   }
 }
