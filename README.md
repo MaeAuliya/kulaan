@@ -1,8 +1,24 @@
-# lbs_byns
+# Kulaan
 
-A new Flutter project.
+Aplikasi Kulaan akan menghasilkan fitur-fitur utama
+1. Autentikasi Pengguna
+    Role: Penjual Daging, Penjual Sayur, Member (Reseller)
+2.Deteksi Lokasi Otomatis
+    Menampilkan penjual terdekat sesuai kategori (daging / sayur)
+3.Tampilan Map Interaktif
+    Penjual ditampilkan sebagai marker di peta
+    Reseller bisa melihat posisi relatif mereka
+4.Katalog Produk Penjual
+    Tiap penjual punya daftar produk, harga, dan stok
+5.Keranjang Belanja & Checkout
+    Reseller bisa menambahkan produk ke keranjang lalu checkout
+    Riwayat Transaksi
+    Riwayat pembelian reseller dan status pesanan
+6.Navigasi / Petunjuk Arah
+    Maps Direction dari lokasi pembeli ke penjual
 
-Menampilkan fasilitas umum terdekat seperti masjid, SPBU, ATM, rumah sakit, atau kantor polisi dari lokasi pengguna.
+## Dependencies Services
+- Firebase
 
 ## Getting Started
 

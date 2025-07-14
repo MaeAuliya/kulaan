@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nsvilecity/src/core/services/dependency_injection/injection_container.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'src/core/services/routers/router.dart';
 import 'src/features/home/presentation/providers/home_provider.dart';
+
 
 class ThemeNotifier extends ChangeNotifier {
   bool _isDarkMode = false;
@@ -21,6 +23,8 @@ class ThemeNotifier extends ChangeNotifier {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
@@ -48,20 +52,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => HomeProvider()),
       ],
-      // child: MaterialApp(
-      //   title: 'LBS',
-      //   theme: ThemeData(
-      //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      //     scaffoldBackgroundColor: Colors.white,
-      //     useMaterial3: true,
-      //   ),
-      //   onGenerateRoute: (settings) => generateRoute(settings),
-      //   debugShowCheckedModeBanner: false,
-      //   // initialRoute: SplashScreen.routeName,
-      //   initialRoute: HomeScreen.routeName,
-      // ),
       child: MaterialApp(
-        title: 'LBS',
+        title: 'KULAAN',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           scaffoldBackgroundColor: Colors.white,

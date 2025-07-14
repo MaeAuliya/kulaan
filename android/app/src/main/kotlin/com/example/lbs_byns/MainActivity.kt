@@ -1,4 +1,4 @@
-package com.example.lbs_byns
+package com.example.kulaan_apps
 
 import io.flutter.embedding.android.FlutterActivity
 

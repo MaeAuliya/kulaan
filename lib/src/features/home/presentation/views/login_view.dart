@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nsvilecity/main.dart';
-import 'package:nsvilecity/src/features/home/presentation/bloc/home_state.dart';
-import 'package:nsvilecity/src/features/home/presentation/widgets/build_facility_item.dart';
+import 'package:nsvilecity/src/features/home/presentation/bloc/login_state.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
-  final HomeState currentState;
-  const HomeView({super.key, required this.currentState,});
+
+class LoginView extends StatelessWidget {
+  final LoginState currentState;
+  const LoginView({super.key, required this.currentState,});
 
   @override
   Widget build(BuildContext context) {
@@ -54,19 +54,24 @@ class HomeView extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Fasilitas Terdekat Berdasarkan Lokasi Anda',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Username'),
               ),
-              SizedBox(height: 16),
-              Expanded(
-                child: ListView(
-                  children: [
-                    BuildFacilityItem(name: 'Login',icon: Icons.login),
-                  ],
-                ),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  // Handle login logic here
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Login button pressed')),
+                  );
+                },
+                child: const Text('Login'),
               ),
             ],
           ),

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nsvilecity/src/features/home/presentation/views/atm_view.dart';
-import 'package:nsvilecity/src/features/home/presentation/views/hospital_view.dart';
-import 'package:nsvilecity/src/features/home/presentation/views/mosque_view.dart';
-import 'package:nsvilecity/src/features/home/presentation/views/police_view.dart';
-import 'package:nsvilecity/src/features/home/presentation/views/spbu_view.dart';
+// import 'package:nsvilecity/src/features/home/presentation/views/login_view.dart';
 
 class BuildFacilityItem extends StatelessWidget {
   final IconData icon;
@@ -19,35 +15,11 @@ class BuildFacilityItem extends StatelessWidget {
         title: Text(name),
         trailing: const Icon(Icons.directions),
         onTap: () {
-          if (name == 'Masjid') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MosqueView()),
-            );
-          }
-          if (name == 'SPBU') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SpbuView()),
-            );
-          }
-          if (name == 'ATM') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AtmView()),
-            );
-          }
-          if (name == 'Rumah Sakit') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const HospitalView()),
-            );
-          }
-          if (name == 'Kantor Polisi') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const PoliceView()),
-            );
+          if (name == 'Login') {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const LoginView()),
+            // );
           }
         },
       ),
