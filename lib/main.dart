@@ -2,31 +2,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nsvilecity/src/core/services/dependency_injection/injection_container.dart';
-// import 'package:nsvilecity/src/features/home/presentation/screens/splash_screen.dart';
-import 'package:nsvilecity/src/features/home/presentation/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
+import 'src/core/extensions/context_extension.dart';
 import 'src/core/services/routers/router.dart';
+import 'src/core/shared/theme_provider.dart';
+import 'src/features/authentication/presentation/providers/authentication_provider.dart';
+import 'src/features/authentication/presentation/screens/splash_screen.dart';
 import 'src/features/home/presentation/providers/home_provider.dart';
-
-
-class ThemeNotifier extends ChangeNotifier {
-  bool _isDarkMode = false;
-
-  bool get isDarkMode => _isDarkMode;
-
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners();
-  }
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-
+  // Init Mobile Orientations
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  // Init Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Init Dependencies
   await initialization();
@@ -46,11 +39,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => AuthenticationProvider()),
       ],
       child: MaterialApp(
         title: 'KULAAN',
@@ -87,10 +79,11 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        themeMode: themeNotifier.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        themeMode:
+            context.themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
         onGenerateRoute: (settings) => generateRoute(settings),
         debugShowCheckedModeBanner: false,
-        initialRoute: HomeScreen.routeName,
+        initialRoute: SplashScreen.routeName,
       ),
     );
   }

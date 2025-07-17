@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nsvilecity/main.dart';
-import 'package:nsvilecity/src/features/home/presentation/bloc/login_state.dart';
-import 'package:provider/provider.dart';
 
+import '../../../../core/extensions/context_extension.dart';
 
-class LoginView extends StatelessWidget {
-  final LoginState currentState;
-  const LoginView({super.key, required this.currentState,});
+class SignInView extends StatelessWidget {
+  const SignInView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    final themeNotifier = context.themeProvider;
     final isDarkMode = themeNotifier.isDarkMode;
 
     return WillPopScope(
@@ -56,11 +53,11 @@ class LoginView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
-                decoration: const InputDecoration(labelText: 'Username'),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Username'),
               ),
-              TextField(
-                decoration: const InputDecoration(labelText: 'Password'),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
               ),
               const SizedBox(height: 24),

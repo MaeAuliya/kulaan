@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nsvilecity/src/features/home/presentation/bloc/home_bloc.dart';
-import 'package:nsvilecity/src/features/home/presentation/bloc/home_state.dart';
-import 'package:nsvilecity/src/features/home/presentation/views/home_view.dart';
+
+import '../bloc/home_bloc.dart';
+import '../bloc/home_state.dart';
+import '../views/home_view.dart';
 
 class HomeScreen extends StatelessWidget {
   final int index;
 
-  const HomeScreen({super.key, required this.index}); 
+  const HomeScreen({super.key, required this.index});
 
   static const routeName = '/home';
 
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kulaan'),
+        title: const Text('Kulaan'),
         automaticallyImplyLeading: false,
       ),
       body: BlocConsumer<HomeBloc, HomeState>(
@@ -24,7 +25,10 @@ class HomeScreen extends StatelessWidget {
             Navigator.pushNamed(context, HomeScreen.routeName);
           }
         },
-        builder: (_ , state) => HomeView(currentState: state,),
-      ),);
+        builder: (_, state) => HomeView(
+          currentState: state,
+        ),
+      ),
+    );
   }
 }

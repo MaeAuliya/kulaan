@@ -3,29 +3,67 @@ part of 'injection_container.dart';
 final sl = GetIt.instance;
 
 Future<void> initialization() async {
-  // final imagePicker = ImagePicker();
-  // final modelDownloader = FirebaseModelDownloader.instance;
+  final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  final preference = await SharedPreferences.getInstance();
+  final imagePicker = ImagePicker();
+  final geolocator = GeolocatorPlatform.instance;
 
-  // await _initCore(
-  //   modelDownloader: modelDownloader,
-  //   imagePicker: imagePicker,
-  // );
-  // initiate your dependency asynchronously but still parallel
+  await _initCore(
+    auth: auth,
+    preference: preference,
+    imagePicker: imagePicker,
+    geolocator: geolocator,
+    firestore: firestore,
+  );
   await Future.wait([
+    _initAuthentication(),
     _initHome(),
-    // Feature A
-    // Feature B
   ]);
 }
 
-// Future<void> _initCore({
-//   required FirebaseModelDownloader modelDownloader,
-//   required ImagePicker imagePicker,
-// }) async {
-//   sl
-//     ..registerLazySingleton(() => modelDownloader)
-//     ..registerLazySingleton(() => imagePicker);
-// }
+Future<void> _initCore({
+  required FirebaseAuth auth,
+  required SharedPreferences preference,
+  required ImagePicker imagePicker,
+  required GeolocatorPlatform geolocator,
+  required FirebaseFirestore firestore,
+}) async {
+  sl
+    ..registerLazySingleton(() => auth)
+    ..registerLazySingleton(() => preference)
+    ..registerLazySingleton(() => imagePicker)
+    ..registerLazySingleton(() => firestore)
+    ..registerLazySingleton(() => geolocator);
+}
+
+Future<void> _initAuthentication() async {
+  sl
+    // Bloc
+    ..registerFactory(() => AuthenticationBloc(
+          signIn: sl(),
+          signInWithCredential: sl(),
+          signOut: sl(),
+        ))
+
+    // Usecases
+    ..registerLazySingleton(() => SignIn(repository: sl()))
+    ..registerLazySingleton(() => SignInWithCredential(repository: sl()))
+    ..registerLazySingleton(() => SignOut(repository: sl()))
+
+    // Repository
+    ..registerLazySingleton<AuthenticationRepository>(
+        () => AuthenticationRepositoryImpl(
+              remoteDataSource: sl(),
+            ))
+
+    // Data Sources
+    ..registerLazySingleton<AuthenticationRemoteDataSource>(
+        () => AuthenticationRemoteDataSourceImpl(
+              auth: sl(),
+              firestore: sl(),
+            ));
+}
 
 Future<void> _initHome() async {
   sl
@@ -44,7 +82,7 @@ Future<void> _initHome() async {
 
     // Data Sources
     ..registerLazySingleton<HomeLocalDataSource>(() => HomeLocalDataSourceImpl(
-          // imagePicker: sl(),
+        // imagePicker: sl(),
         ));
 }
 

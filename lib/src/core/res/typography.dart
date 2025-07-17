@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'fonts.dart';
+
 class CoreTypography {
   const CoreTypography._();
 
@@ -28,7 +30,7 @@ class CoreTypography {
           decorationThickness: 2,
           fontSize: fontSize,
           color: color,
-          // fontFamily: Fonts.roboto, // // Apply your default fonts here
+          fontFamily: Fonts.roboto,
           fontWeight: fontWeight,
           height: textHeight,
         ),

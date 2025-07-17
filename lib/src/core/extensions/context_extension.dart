@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/authentication/presentation/bloc/authentication_bloc.dart';
+import '../../features/authentication/presentation/providers/authentication_provider.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import '../../features/home/presentation/providers/home_provider.dart';
+import '../shared/theme_provider.dart';
 
 extension ContextExtension on BuildContext {
   // Theme
@@ -30,12 +33,18 @@ extension ContextExtension on BuildContext {
   double get topSafe => MediaQuery.paddingOf(this).top;
 
   // Blocs
+  AuthenticationBloc get authBloc => read<AuthenticationBloc>();
+
   HomeBloc get homeBloc => read<HomeBloc>();
 
   // Providers
+  AuthenticationProvider get authProvider => read<AuthenticationProvider>();
+
   HomeProvider get homeProvider => read<HomeProvider>();
 
-  // Navigator
-  // if you using bottom navigator controller
-  // NavigationController get bottomNavigator => read<NavigationController>();
+  ThemeNotifier get themeProvider => read<ThemeNotifier>();
+
+// Navigator
+// if you using bottom navigator controller
+// NavigationController get bottomNavigator => read<NavigationController>();
 }

@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/extensions/context_extension.dart';
+import '../../../../core/res/colours.dart';
+import '../../../../core/utils/core_utils.dart';
+import '../../../home/presentation/screens/home_screen.dart';
+import '../bloc/authentication_bloc.dart';
+import '../views/splash_view.dart';
+import 'sign_in_screen.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  static const routeName = '/splash-screen';
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    context.authBloc.add(const SignInWithCredentialEvent());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colours.primaryBlue,
+      body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) async {
+          if (state is SignInWithCredentialError) {
+            CoreUtils.showSnackBar(
+              context: context,
+              message: state.errorMessage,
+              isError: true,
+            );
+          } else if (state is SignInWithCredentialFailed) {
+            Future.delayed(const Duration(seconds: 2), () {
+              if (!context.mounted) return;
+              Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+            });
+          } else if (state is SignInWithCredentialSuccess) {
+            Future.delayed(const Duration(seconds: 2), () {
+              if (!context.mounted) return;
+              Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            });
+          }
+        },
+        builder: (context, state) => const SplashView(),
+      ),
+    );
+  }
+}

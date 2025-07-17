@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nsvilecity/main.dart';
 import 'package:nsvilecity/src/features/home/presentation/bloc/home_state.dart';
 import 'package:nsvilecity/src/features/home/presentation/widgets/build_facility_item.dart';
-import 'package:provider/provider.dart';
+
+import '../../../../core/extensions/context_extension.dart';
 
 class HomeView extends StatelessWidget {
   final HomeState currentState;
-  const HomeView({super.key, required this.currentState,});
+  const HomeView({
+    super.key,
+    required this.currentState,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    final themeNotifier = context.themeProvider;
     final isDarkMode = themeNotifier.isDarkMode;
 
     return WillPopScope(
@@ -56,15 +59,15 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Fasilitas Terdekat Berdasarkan Lokasi Anda',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Expanded(
                 child: ListView(
                   children: [
-                    BuildFacilityItem(name: 'Login',icon: Icons.login),
+                    const BuildFacilityItem(name: 'Login', icon: Icons.login),
                   ],
                 ),
               ),

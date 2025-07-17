@@ -5,8 +5,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SplashScreen.routeName:
       return _pageBuilder(
         (_) => BlocProvider(
-          create: (_) => sl<HomeBloc>(),
+          create: (_) => sl<AuthenticationBloc>(),
           child: const SplashScreen(),
+        ),
+        settings: settings,
+      );
+    case SignInScreen.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<AuthenticationBloc>(),
+          child: const SignInScreen(),
         ),
         settings: settings,
       );
@@ -15,7 +23,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (_) => BlocProvider(
           create: (_) => sl<HomeBloc>(),
-          child: HomeScreen(index: index,),
+          child: HomeScreen(
+            index: index,
+          ),
         ),
         settings: settings,
       );
