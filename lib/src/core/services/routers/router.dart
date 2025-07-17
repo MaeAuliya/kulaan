@@ -6,6 +6,7 @@ import '../../../features/authentication/presentation/screens/sign_in_screen.dar
 import '../../../features/authentication/presentation/screens/splash_screen.dart';
 import '../../../features/home/presentation/bloc/home_bloc.dart';
 import '../../../features/home/presentation/screens/home_screen.dart';
+import '../../../features/navigation/presentation/views/user_bottom_navigation.dart';
 import '../../shared/screens/page_under_construction.dart';
 import '../dependency_injection/injection_container.dart';
 

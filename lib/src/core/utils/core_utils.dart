@@ -27,9 +27,8 @@ class CoreUtils {
               Container(
                 width: context.widthScale * 24,
                 height: context.widthScale * 24,
-                decoration: BoxDecoration(
-                    color: Colours.white,
-                    borderRadius: BorderRadius.circular(6)),
+                decoration:
+                    BoxDecoration(color: Colours.white, borderRadius: BorderRadius.circular(6)),
                 alignment: Alignment.center,
                 child: Icon(
                   isError ? Icons.close_rounded : Icons.check_rounded,
@@ -56,10 +55,8 @@ class CoreUtils {
               ),
             ],
           ),
-          backgroundColor:
-              isError ? Colours.errorColor : Colours.successSnackBar,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          backgroundColor: isError ? Colours.errorColor : Colours.successSnackBar,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           behavior: SnackBarBehavior.floating,
           // showCloseIcon: true,
           // closeIconColor: Colours.white,
@@ -79,5 +76,30 @@ class CoreUtils {
         child: const LoadingViewDialog(),
       ),
     );
+  }
+
+  static String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return '* Email tidak boleh kosong';
+    }
+
+    final emailRegex = RegExp(r'^[\w\.-]+@[\w\.-]+\.\w+$');
+    if (!emailRegex.hasMatch(value)) {
+      return '* Format email tidak valid';
+    }
+
+    return null;
+  }
+
+  static String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return '* Password tidak boleh kosong';
+    }
+
+    if (value.length < 8) {
+      return '* Password minimal 8 karakter';
+    }
+
+    return null;
   }
 }

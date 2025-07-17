@@ -6,11 +6,14 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 import 'src/core/extensions/context_extension.dart';
+import 'src/core/res/colours.dart';
 import 'src/core/services/routers/router.dart';
 import 'src/core/shared/theme_provider.dart';
 import 'src/features/authentication/presentation/providers/authentication_provider.dart';
+import 'src/features/authentication/presentation/providers/user_provider.dart';
 import 'src/features/authentication/presentation/screens/splash_screen.dart';
 import 'src/features/home/presentation/providers/home_provider.dart';
+import 'src/features/navigation/presentation/providers/navigation_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,11 +46,13 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => AuthenticationProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => NavigationController()),
       ],
       child: MaterialApp(
         title: 'KULAAN',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colours.primaryBlue),
           scaffoldBackgroundColor: Colors.white,
           useMaterial3: true,
           textTheme: const TextTheme(
@@ -57,13 +62,13 @@ class MyApp extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.black),
           cardColor: Colors.white,
           appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: Colours.primaryBlue,
             foregroundColor: Colors.white,
           ),
         ),
         darkTheme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
+            seedColor: Colours.primaryBlue,
             brightness: Brightness.dark,
           ),
           scaffoldBackgroundColor: Colors.grey[900],
@@ -79,8 +84,7 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        themeMode:
-            context.themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        themeMode: context.themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
         onGenerateRoute: (settings) => generateRoute(settings),
         debugShowCheckedModeBanner: false,
         initialRoute: SplashScreen.routeName,

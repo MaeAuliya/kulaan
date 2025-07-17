@@ -105,7 +105,7 @@ class Colours {
 
   static const Color goldBg = Color(0xFFFFF6C3);
 
-  static const Color gold = Color(0xFFE4C102);
+  static const Color gold = Color(0xffFDC300);
 
   static const Color diamondBg = Color(0xFFF2FCFF);
 

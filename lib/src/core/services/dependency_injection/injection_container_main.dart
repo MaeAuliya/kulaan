@@ -52,10 +52,9 @@ Future<void> _initAuthentication() async {
     ..registerLazySingleton(() => SignOut(repository: sl()))
 
     // Repository
-    ..registerLazySingleton<AuthenticationRepository>(
-        () => AuthenticationRepositoryImpl(
-              remoteDataSource: sl(),
-            ))
+    ..registerLazySingleton<AuthenticationRepository>(() => AuthenticationRepositoryImpl(
+          remoteDataSource: sl(),
+        ))
 
     // Data Sources
     ..registerLazySingleton<AuthenticationRemoteDataSource>(

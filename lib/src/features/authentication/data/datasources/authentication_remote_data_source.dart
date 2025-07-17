@@ -16,8 +16,7 @@ abstract class AuthenticationRemoteDataSource {
   Future<void> signOut();
 }
 
-class AuthenticationRemoteDataSourceImpl
-    implements AuthenticationRemoteDataSource {
+class AuthenticationRemoteDataSourceImpl implements AuthenticationRemoteDataSource {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
 
@@ -41,8 +40,9 @@ class AuthenticationRemoteDataSourceImpl
         return null;
       }
 
-      final docSnapshot =
-          await _firestore.collection('users').doc(user.uid).get();
+      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
+
+      debugPrint(docSnapshot.toString());
 
       if (docSnapshot.exists) {
         final result = docSnapshot.data();
@@ -52,9 +52,7 @@ class AuthenticationRemoteDataSourceImpl
       }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-        case 'user-not-found':
-        case 'wrong-password':
-        case 'invalid-email':
+        case 'invalid-credential':
           return null;
         default:
           throw ServerException(
@@ -84,8 +82,7 @@ class AuthenticationRemoteDataSourceImpl
         return null;
       }
 
-      final docSnapshot =
-          await _firestore.collection('users').doc(user.uid).get();
+      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
 
       if (docSnapshot.exists) {
         final result = docSnapshot.data();

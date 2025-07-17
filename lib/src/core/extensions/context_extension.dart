@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/authentication/presentation/bloc/authentication_bloc.dart';
 import '../../features/authentication/presentation/providers/authentication_provider.dart';
+import '../../features/authentication/presentation/providers/user_provider.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import '../../features/home/presentation/providers/home_provider.dart';
+import '../../features/navigation/presentation/providers/navigation_controller.dart';
 import '../shared/theme_provider.dart';
 
 extension ContextExtension on BuildContext {
@@ -40,11 +42,13 @@ extension ContextExtension on BuildContext {
   // Providers
   AuthenticationProvider get authProvider => read<AuthenticationProvider>();
 
+  UserProvider get userProvider => read<UserProvider>();
+
   HomeProvider get homeProvider => read<HomeProvider>();
 
   ThemeNotifier get themeProvider => read<ThemeNotifier>();
 
 // Navigator
 // if you using bottom navigator controller
-// NavigationController get bottomNavigator => read<NavigationController>();
+  NavigationController get bottomNavigator => read<NavigationController>();
 }

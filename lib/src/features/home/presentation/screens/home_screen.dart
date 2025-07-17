@@ -6,28 +6,20 @@ import '../bloc/home_state.dart';
 import '../views/home_view.dart';
 
 class HomeScreen extends StatelessWidget {
-  final int index;
-
-  const HomeScreen({super.key, required this.index});
+  const HomeScreen({super.key});
 
   static const routeName = '/home';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Kulaan'),
-        automaticallyImplyLeading: false,
-      ),
       body: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeError) {
             Navigator.pushNamed(context, HomeScreen.routeName);
           }
         },
-        builder: (_, state) => HomeView(
-          currentState: state,
-        ),
+        builder: (_, state) => const HomeView(),
       ),
     );
   }

@@ -16,7 +16,7 @@ class SplashView extends StatelessWidget {
             child: Center(
               child: CoreTypography.coreText(
                 text: 'Kulaan.',
-                color: Colours.pendingColor,
+                color: Colours.gold,
                 fontSize: 40,
                 fontWeight: CoreTypography.bold,
               ),

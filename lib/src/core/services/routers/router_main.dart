@@ -19,12 +19,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
     case HomeScreen.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<HomeBloc>(),
+          child: const HomeScreen(),
+        ),
+        settings: settings,
+      );
+
+    case UserBottomNavigationCore.routeName:
       final int index = settings.arguments as int? ?? 0;
       return _pageBuilder(
         (_) => BlocProvider(
           create: (_) => sl<HomeBloc>(),
-          child: HomeScreen(
-            index: index,
+          child: UserBottomNavigationCore(
+            startIndex: index,
           ),
         ),
         settings: settings,
