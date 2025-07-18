@@ -14,6 +14,8 @@ abstract class HomeLocalDataSource {
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   // final ImagePicker _imagePicker;
 
+  const HomeLocalDataSourceImpl();
+
   // const HomeLocalDataSourceImpl({
   //   required ImagePicker imagePicker,
   // }) : _imagePicker = imagePicker;
@@ -23,12 +25,12 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
     try {
       final message = 'Hello World! $example';
 
-      final result =  ExampleModel(message: message);
+      final result = ExampleModel(message: message);
 
       return result;
     } on LocalException {
       rethrow;
-    } catch (e,s) {
+    } catch (e, s) {
       debugPrintStack(stackTrace: s);
       throw LocalException(message: e.toString());
     }

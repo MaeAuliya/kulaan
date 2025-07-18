@@ -12,4 +12,22 @@ class HomeProvider extends ChangeNotifier {
     _example = ExampleModel.fromEntity(newExample);
     notifyListeners();
   }
+
+  List<String>? _news;
+
+  List<String>? get news => _news;
+
+  void initNews(List<String> news) {
+    _news = news;
+    notifyListeners();
+  }
+
+  int _currentNewsId = 0;
+
+  int get currentNewsId => _currentNewsId;
+
+  void updateNewsPage(int news) {
+    _currentNewsId = news;
+    notifyListeners();
+  }
 }

@@ -16,7 +16,8 @@ abstract class AuthenticationRemoteDataSource {
   Future<void> signOut();
 }
 
-class AuthenticationRemoteDataSourceImpl implements AuthenticationRemoteDataSource {
+class AuthenticationRemoteDataSourceImpl
+    implements AuthenticationRemoteDataSource {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
 
@@ -40,9 +41,8 @@ class AuthenticationRemoteDataSourceImpl implements AuthenticationRemoteDataSour
         return null;
       }
 
-      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
-
-      debugPrint(docSnapshot.toString());
+      final docSnapshot =
+          await _firestore.collection('users').doc(user.uid).get();
 
       if (docSnapshot.exists) {
         final result = docSnapshot.data();
@@ -82,7 +82,8 @@ class AuthenticationRemoteDataSourceImpl implements AuthenticationRemoteDataSour
         return null;
       }
 
-      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
+      final docSnapshot =
+          await _firestore.collection('users').doc(user.uid).get();
 
       if (docSnapshot.exists) {
         final result = docSnapshot.data();

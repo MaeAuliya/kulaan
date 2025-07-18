@@ -52,9 +52,10 @@ Future<void> _initAuthentication() async {
     ..registerLazySingleton(() => SignOut(repository: sl()))
 
     // Repository
-    ..registerLazySingleton<AuthenticationRepository>(() => AuthenticationRepositoryImpl(
-          remoteDataSource: sl(),
-        ))
+    ..registerLazySingleton<AuthenticationRepository>(
+        () => AuthenticationRepositoryImpl(
+              remoteDataSource: sl(),
+            ))
 
     // Data Sources
     ..registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -69,20 +70,28 @@ Future<void> _initHome() async {
     // Bloc
     ..registerFactory(() => HomeBloc(
           exampleUseCase: sl(),
+          getNews: sl(),
+          getRecommendProduct: sl(),
         ))
 
     // Usecases
     ..registerLazySingleton(() => ExampleUseCase(repository: sl()))
+    ..registerLazySingleton(() => GetNews(repository: sl()))
+    ..registerLazySingleton(() => GetRecommendProduct(repository: sl()))
 
     // Repository
     ..registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(
           localDataSource: sl(),
+          remoteDataSource: sl(),
         ))
 
     // Data Sources
-    ..registerLazySingleton<HomeLocalDataSource>(() => HomeLocalDataSourceImpl(
-        // imagePicker: sl(),
-        ));
+    ..registerLazySingleton<HomeLocalDataSource>(
+        () => const HomeLocalDataSourceImpl())
+    ..registerLazySingleton<HomeRemoteDataSource>(
+        () => HomeRemoteDataSourceImpl(
+              firestore: sl(),
+            ));
 }
 
 // Future<void> _initExample() async {

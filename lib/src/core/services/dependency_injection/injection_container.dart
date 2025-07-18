@@ -1,6 +1,5 @@
 // import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
@@ -17,10 +16,12 @@ import '../../../features/authentication/domain/usecases/sign_in_with_credential
 import '../../../features/authentication/domain/usecases/sign_out.dart';
 import '../../../features/authentication/presentation/bloc/authentication_bloc.dart';
 import '../../../features/home/data/datasources/home_local_data_source.dart';
+import '../../../features/home/data/datasources/home_remote_data_source.dart';
 import '../../../features/home/data/repository/home_repository_impl.dart';
 import '../../../features/home/domain/repository/home_repository.dart';
 import '../../../features/home/domain/usecase/example_use_case.dart';
+import '../../../features/home/domain/usecase/get_news.dart';
+import '../../../features/home/domain/usecase/get_recommend_product.dart';
 import '../../../features/home/presentation/bloc/home_bloc.dart';
-import '../network/api.dart';
 
 part 'injection_container_main.dart';

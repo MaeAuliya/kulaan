@@ -19,3 +19,11 @@ final class ExampleEvent extends HomeEvent {
 final class ShowDialogEvent extends HomeEvent {
   const ShowDialogEvent();
 }
+
+final class GetNewsEvent extends HomeEvent {
+  const GetNewsEvent();
+}
+
+final class GetRecommendProductEvent extends HomeEvent {
+  const GetRecommendProductEvent();
+}

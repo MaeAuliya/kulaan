@@ -7,9 +7,14 @@ class MediaRes {
   static const _baseAnimations = 'assets/animations';
 
   // Icons
+  static const allProductIcon = '$_baseIcons/all_product_icon.svg';
+  static const fastFoodIcon = '$_baseIcons/fast_food_icon.svg';
+  static const fruitsIcon = '$_baseIcons/fruits_icon.svg';
+  static const vegetableIcon = '$_baseIcons/vegetable_icon.svg';
   static const exampleIcon = '$_baseIcons/.svg';
 
   // Images
+  static const promoDummyImages = '$_baseImages/promo_dummy.png';
   static const exampleImages = '$_baseImages/.png';
 
   // Vectors

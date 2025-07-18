@@ -46,6 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
             CoreUtils.showLoadingDialog(context);
           } else if (state is SignInSuccess) {
             Navigator.pop(context);
+            context.userProvider.updateUser(state.currentUser);
             Navigator.pushNamed(context, UserBottomNavigationCore.routeName);
           } else if (state is SignInInvalid) {
             Navigator.pop(context);

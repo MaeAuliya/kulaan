@@ -7,6 +7,7 @@ import '../../../../core/utils/core_utils.dart';
 import '../../../navigation/presentation/views/user_bottom_navigation.dart';
 import '../bloc/authentication_bloc.dart';
 import '../views/splash_view.dart';
+import 'sign_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -39,14 +40,14 @@ class _SplashScreenState extends State<SplashScreen> {
           } else if (state is SignInWithCredentialFailed) {
             Future.delayed(const Duration(seconds: 2), () {
               if (!context.mounted) return;
-              Navigator.pushReplacementNamed(context, UserBottomNavigationCore.routeName);
+              Navigator.pushReplacementNamed(context, SignInScreen.routeName);
             });
           } else if (state is SignInWithCredentialSuccess) {
-            debugPrint(state.currentUser.toString());
             context.userProvider.updateUser(state.currentUser);
             Future.delayed(const Duration(seconds: 2), () {
               if (!context.mounted) return;
-              Navigator.pushReplacementNamed(context, UserBottomNavigationCore.routeName);
+              Navigator.pushReplacementNamed(
+                  context, UserBottomNavigationCore.routeName);
             });
           }
         },
