@@ -46,9 +46,24 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
           .limit(10)
           .get();
 
-      return snapshot.docs
-          .map((docSnapshot) => CoreProductModel.fromMap(docSnapshot.data()))
-          .toList();
+      final List<CoreProductModel> products = [];
+
+      for (final doc in snapshot.docs) {
+        final productData = doc.data();
+        final sellerId = productData['sellerId'];
+
+        final sellerSnapshot = await _firestore.collection('sellers').doc(sellerId).get();
+        final sellerData = sellerSnapshot.data();
+
+        if (sellerData != null) {
+          productData['seller'] = sellerData;
+
+          final product = CoreProductModel.fromMap(productData);
+          products.add(product);
+        }
+      }
+
+      return products;
     } on FirebaseException catch (e) {
       throw ServerException(
         message: "Failed with error '${e.code}': ${e.message}",

@@ -1,5 +1,6 @@
 import '../../../../core/utils/typedef.dart';
 import '../../domain/entities/core_user.dart';
+import 'core_user_location_model.dart';
 
 class CoreUserModel extends CoreUser {
   const CoreUserModel({
@@ -9,6 +10,7 @@ class CoreUserModel extends CoreUser {
     required super.isActive,
     required super.phoneNumber,
     required super.role,
+    required super.location,
   });
 
   const CoreUserModel.empty()
@@ -19,6 +21,7 @@ class CoreUserModel extends CoreUser {
           isActive: false,
           phoneNumber: '',
           role: '',
+          location: const CoreUserLocationModel.empty(),
         );
 
   CoreUserModel.fromEntity(CoreUser entity)
@@ -29,6 +32,7 @@ class CoreUserModel extends CoreUser {
           isActive: entity.isActive,
           phoneNumber: entity.phoneNumber,
           role: entity.role,
+          location: entity.location,
         );
 
   CoreUserModel.fromMap(DataMap map)
@@ -39,5 +43,6 @@ class CoreUserModel extends CoreUser {
           isActive: map['isActive'] as bool,
           phoneNumber: map['phoneNumber'] as String,
           role: map['role'] as String,
+          location: CoreUserLocationModel.fromMap(map['location'] as DataMap),
         );
 }

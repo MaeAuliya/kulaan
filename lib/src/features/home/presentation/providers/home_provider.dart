@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../cart/data/models/core_product_model.dart';
+import '../../../cart/domain/entities/core_product.dart';
 import '../../data/models/example_model.dart';
 import '../../domain/entities/example.dart';
 
@@ -28,6 +30,15 @@ class HomeProvider extends ChangeNotifier {
 
   void updateNewsPage(int news) {
     _currentNewsId = news;
+    notifyListeners();
+  }
+
+  List<CoreProductModel>? _recommendProducts;
+
+  List<CoreProductModel>? get recommendProducts => _recommendProducts;
+
+  void initRecommendProduct(List<CoreProduct> products) {
+    _recommendProducts = products.map((product) => CoreProductModel.fromEntity(product)).toList();
     notifyListeners();
   }
 }

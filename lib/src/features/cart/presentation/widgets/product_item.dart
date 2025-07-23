@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/extensions/context_extension.dart';
@@ -10,15 +11,17 @@ class ProductItem extends StatelessWidget {
   final String name;
   final String sellerName;
   final String price;
-  final String sellerLocation;
+  final String unit;
+  final VoidCallback onPlusTap;
 
   const ProductItem({
     super.key,
     required this.image,
     required this.name,
-    required this.sellerLocation,
+    required this.unit,
     required this.price,
     required this.sellerName,
+    required this.onPlusTap,
   });
 
   @override
@@ -38,21 +41,68 @@ class ProductItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.asset(
-            name,
-            height: context.heightScale * 48,
-            fit: BoxFit.cover,
+          Expanded(
+            child: Image.asset(
+              image,
+              height: context.heightScale * 48,
+              fit: BoxFit.contain,
+            ),
           ),
           const CoreDivider(),
           Padding(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(8),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CoreTypography.coreText(
                   text: name,
                   fontWeight: CoreTypography.bold,
-                  maxLine: 1,
+                  fontSize: 14,
+                  maxLine: 2,
                 ),
+                CoreTypography.coreText(
+                  text: sellerName,
+                  fontSize: 12,
+                  color: Colours.diamond,
+                ),
+                CoreTypography.coreText(
+                  text: unit,
+                  fontSize: 12,
+                  color: Colours.grey,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: context.widthScale * 8,
+                  children: [
+                    Expanded(
+                      child: CoreTypography.coreText(
+                        text: 'Rp. $price',
+                        fontWeight: CoreTypography.semiBold,
+                        fontSize: 14,
+                        color: Colours.darkBlue,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: onPlusTap,
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        foregroundColor: Colours.white,
+                        minimumSize: Size(
+                          context.widthScale * 18,
+                          context.widthScale * 32,
+                        ),
+                        backgroundColor: Colours.primaryBlue,
+                        padding: const EdgeInsets.all(8),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: const Icon(
+                        CupertinoIcons.plus,
+                        color: Colours.white,
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           )

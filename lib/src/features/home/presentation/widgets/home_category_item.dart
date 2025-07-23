@@ -21,8 +21,8 @@ class HomeCategoryItem extends StatelessWidget {
       spacing: context.heightScale * 8,
       children: [
         Container(
-          width: 64,
-          height: 64,
+          width: 52,
+          height: 52,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colours.blueVehicleDetailBackground,
@@ -35,6 +35,7 @@ class HomeCategoryItem extends StatelessWidget {
         CoreTypography.coreText(
           text: name,
           fontWeight: CoreTypography.semiBold,
+          fontSize: 10,
         )
       ],
     );

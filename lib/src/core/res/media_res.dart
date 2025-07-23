@@ -15,6 +15,10 @@ class MediaRes {
 
   // Images
   static const promoDummyImages = '$_baseImages/promo_dummy.png';
+  static const meatDummyImages = '$_baseImages/meat_dummy.png';
+  static const chickenDummyImages = '$_baseImages/chicken_dummy.png';
+  static const saladDummyImages = '$_baseImages/salad_dummy.png';
+  static const vegetableDummyImages = '$_baseImages/vegetable_dummy.png';
   static const exampleImages = '$_baseImages/.png';
 
   // Vectors

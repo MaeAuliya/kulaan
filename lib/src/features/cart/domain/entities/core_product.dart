@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'core_seller.dart';
+
 class CoreProduct extends Equatable {
   final String name;
   final String category;
@@ -11,6 +13,7 @@ class CoreProduct extends Equatable {
   final int stock;
   final String subCategory;
   final String unit;
+  final CoreSeller? seller;
 
   const CoreProduct({
     required this.name,
@@ -23,6 +26,7 @@ class CoreProduct extends Equatable {
     required this.stock,
     required this.subCategory,
     required this.unit,
+    required this.seller,
   });
 
   @override
@@ -37,5 +41,6 @@ class CoreProduct extends Equatable {
         stock,
         subCategory,
         unit,
+        seller,
       ];
 }

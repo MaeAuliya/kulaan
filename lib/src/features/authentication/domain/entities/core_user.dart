@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'core_user_location.dart';
+
 class CoreUser extends Equatable {
   final String id;
   final String email;
@@ -7,6 +9,7 @@ class CoreUser extends Equatable {
   final bool isActive;
   final String phoneNumber;
   final String role;
+  final CoreUserLocation location;
 
   const CoreUser({
     required this.id,
@@ -15,6 +18,7 @@ class CoreUser extends Equatable {
     required this.isActive,
     required this.phoneNumber,
     required this.role,
+    required this.location,
   });
 
   @override
@@ -25,5 +29,6 @@ class CoreUser extends Equatable {
         isActive,
         phoneNumber,
         role,
+        location,
       ];
 }
