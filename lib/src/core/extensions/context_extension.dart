@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/authentication/presentation/bloc/authentication_bloc.dart';
 import '../../features/authentication/presentation/providers/authentication_provider.dart';
 import '../../features/authentication/presentation/providers/user_provider.dart';
+import '../../features/cart/presentation/bloc/cart_bloc.dart';
+import '../../features/cart/presentation/providers/cart_provider.dart';
+import '../../features/cart/presentation/providers/map_provider.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import '../../features/home/presentation/providers/home_provider.dart';
 import '../../features/navigation/presentation/providers/navigation_controller.dart';
@@ -39,12 +42,18 @@ extension ContextExtension on BuildContext {
 
   HomeBloc get homeBloc => read<HomeBloc>();
 
+  CartBloc get cartBloc => read<CartBloc>();
+
   // Providers
   AuthenticationProvider get authProvider => read<AuthenticationProvider>();
 
   UserProvider get userProvider => read<UserProvider>();
 
   HomeProvider get homeProvider => read<HomeProvider>();
+
+  MapProvider get mapProvider => read<MapProvider>();
+
+  CartProvider get cartProvider => read<CartProvider>();
 
   ThemeNotifier get themeProvider => read<ThemeNotifier>();
 

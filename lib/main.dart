@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:nsvilecity/src/core/services/dependency_injection/injection_container.dart';
 import 'package:provider/provider.dart';
 
@@ -9,9 +10,12 @@ import 'src/core/extensions/context_extension.dart';
 import 'src/core/res/colours.dart';
 import 'src/core/services/routers/router.dart';
 import 'src/core/shared/theme_provider.dart';
+import 'src/core/utils/constants.dart';
 import 'src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'src/features/authentication/presentation/providers/user_provider.dart';
 import 'src/features/authentication/presentation/screens/splash_screen.dart';
+import 'src/features/cart/presentation/providers/cart_provider.dart';
+import 'src/features/cart/presentation/providers/map_provider.dart';
 import 'src/features/home/presentation/providers/home_provider.dart';
 import 'src/features/navigation/presentation/providers/navigation_controller.dart';
 
@@ -26,6 +30,9 @@ void main() async {
 
   // Init Dependencies
   await initialization();
+
+  // MapBoxInit
+  MapboxOptions.setAccessToken(Constants.mapAccessToken);
 
   // runApp(const MyApp());
   runApp(
@@ -47,6 +54,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => AuthenticationProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => MapProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => NavigationController()),
       ],
       child: MaterialApp(
@@ -84,7 +93,8 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        themeMode: context.themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        themeMode:
+            context.themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
         onGenerateRoute: (settings) => generateRoute(settings),
         debugShowCheckedModeBanner: false,
         initialRoute: SplashScreen.routeName,

@@ -52,11 +52,13 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
         final productData = doc.data();
         final sellerId = productData['sellerId'];
 
-        final sellerSnapshot = await _firestore.collection('sellers').doc(sellerId).get();
+        final sellerSnapshot =
+            await _firestore.collection('sellers').doc(sellerId).get();
         final sellerData = sellerSnapshot.data();
 
         if (sellerData != null) {
           productData['seller'] = sellerData;
+          productData['id'] = doc.id;
 
           final product = CoreProductModel.fromMap(productData);
           products.add(product);

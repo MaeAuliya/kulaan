@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/extensions/context_extension.dart';
 import '../../../../core/res/colours.dart';
@@ -20,16 +19,23 @@ class HomeCategoryItem extends StatelessWidget {
     return Column(
       spacing: context.heightScale * 8,
       children: [
-        Container(
-          width: 52,
-          height: 52,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colours.blueVehicleDetailBackground,
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(52, 52),
+            padding: const EdgeInsets.all(8),
+            shape: const CircleBorder(),
+            backgroundColor: Colours.blueVehicleDetailBackground,
+            elevation: 0,
+            shadowColor: Colors.transparent,
           ),
-          child: SvgPicture.asset(
-            image,
-            fit: BoxFit.cover,
+          child: SizedBox(
+            width: 32,
+            height: 32,
+            child: Image.asset(
+              image,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         CoreTypography.coreText(

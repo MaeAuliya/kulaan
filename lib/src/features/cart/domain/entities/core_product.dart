@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'core_seller.dart';
 
 class CoreProduct extends Equatable {
+  final String id;
   final String name;
   final String category;
   final String description;
@@ -16,6 +17,7 @@ class CoreProduct extends Equatable {
   final CoreSeller? seller;
 
   const CoreProduct({
+    required this.id,
     required this.name,
     required this.category,
     required this.description,
@@ -31,6 +33,7 @@ class CoreProduct extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         name,
         category,
         description,

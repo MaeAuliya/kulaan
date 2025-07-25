@@ -7,6 +7,7 @@ import '../../../../core/res/colours.dart';
 import '../../../../core/res/media_res.dart';
 import '../../../../core/res/typography.dart';
 import '../../../authentication/presentation/providers/user_provider.dart';
+import '../../../cart/presentation/screens/detail_seller_screen.dart';
 import '../../../cart/presentation/widgets/product_item.dart';
 import '../providers/home_provider.dart';
 import '../widgets/home_category_item.dart';
@@ -31,7 +32,8 @@ class HomeView extends StatelessWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: context.heightScale * 16),
+                  padding:
+                      EdgeInsets.symmetric(vertical: context.heightScale * 16),
                   child: PageView.builder(
                     controller: controller,
                     itemCount: provider.news!.length,
@@ -41,12 +43,14 @@ class HomeView extends StatelessWidget {
                       return AnimatedBuilder(
                         animation: controller,
                         builder: (context, child) {
-                          double currentPage = controller.page ?? controller.initialPage.toDouble();
+                          double currentPage = controller.page ??
+                              controller.initialPage.toDouble();
 
                           double distance = (currentPage - index).abs();
 
                           double scale = 1 - (distance * 0.15).clamp(0.0, 0.15);
-                          double opacity = 1 - (distance * 0.25).clamp(0.0, 0.25);
+                          double opacity =
+                              1 - (distance * 0.25).clamp(0.0, 0.25);
 
                           return Opacity(
                             opacity: opacity,
@@ -73,7 +77,8 @@ class HomeView extends StatelessWidget {
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colours.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(16)),
                   ),
                   padding: EdgeInsets.symmetric(
                     vertical: context.heightScale * 16,
@@ -91,7 +96,8 @@ class HomeView extends StatelessWidget {
                               horizontal: context.widthScale * 16),
                           decoration: BoxDecoration(
                             color: Colours.white,
-                            border: Border.all(color: Colours.greyTextFieldStroke),
+                            border:
+                                Border.all(color: Colours.greyTextFieldStroke),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Consumer<UserProvider>(
@@ -119,34 +125,34 @@ class HomeView extends StatelessWidget {
                                       ],
                                     ),
                                     CoreTypography.coreText(
-                                      text: 'Hello, ${provider.currentUser!.name}!',
+                                      text:
+                                          'Hello, ${provider.currentUser!.name}!',
                                       fontSize: 14,
                                       fontWeight: CoreTypography.semiBold,
                                       color: Colours.primaryBlue,
                                     )
                                   ],
                                 ),
-                                Material(
-                                  child: InkWell(
-                                    onTap: () {
-                                      debugPrint('zzz');
-                                    },
-                                    highlightColor: Colours.blueVehicleDetailBackground,
-                                    splashColor: Colours.blueVehicleDetailBackground,
-                                    child: Container(
-                                      padding: EdgeInsets.all(context.widthScale * 6),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(color: Colours.greyTextFieldStroke),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: const Icon(
-                                        CupertinoIcons.cart,
-                                        color: Colours.primaryBlue,
-                                      ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(32, 32),
+                                    backgroundColor: Colours.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      side: const BorderSide(
+                                          color: Colours.greyEmptyImage),
                                     ),
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    padding: const EdgeInsets.all(10),
+                                    shadowColor: Colors.transparent,
                                   ),
-                                ),
+                                  child: const Icon(
+                                    CupertinoIcons.cart,
+                                    color: Colours.primaryBlue,
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -198,7 +204,8 @@ class HomeView extends StatelessWidget {
                                 ? const Expanded(
                                     child: Center(
                                       child: CircularProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
                                           Colours.primaryBlue,
                                         ),
                                       ),
@@ -206,11 +213,13 @@ class HomeView extends StatelessWidget {
                                   )
                                 : Expanded(
                                     child: ListView.builder(
-                                      itemCount: provider.recommendProducts!.length,
+                                      itemCount:
+                                          provider.recommendProducts!.length,
                                       scrollDirection: Axis.horizontal,
                                       padding: EdgeInsets.zero,
                                       itemBuilder: (_, index) {
-                                        final product = provider.recommendProducts![index];
+                                        final product =
+                                            provider.recommendProducts![index];
                                         if (index == 0) {
                                           return Padding(
                                             padding: EdgeInsets.only(
@@ -222,20 +231,39 @@ class HomeView extends StatelessWidget {
                                               name: product.name,
                                               unit: '/ ${product.unit}',
                                               price: product.price.toString(),
-                                              sellerName: product.seller?.businessName ?? '',
-                                              onPlusTap: () {},
+                                              sellerName: product
+                                                      .seller?.businessName ??
+                                                  '',
+                                              onPlusTap: () {
+                                                context.mapProvider
+                                                    .setEntityMarker(
+                                                        product.seller!);
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    DetailSellerScreen
+                                                        .routeName);
+                                              },
                                             ),
                                           );
                                         }
                                         return Padding(
-                                          padding: EdgeInsets.only(right: context.widthScale * 12),
+                                          padding: EdgeInsets.only(
+                                              right: context.widthScale * 12),
                                           child: ProductItem(
                                             image: MediaRes.meatDummyImages,
                                             name: product.name,
                                             unit: '/ ${product.unit}',
                                             price: product.price.toString(),
-                                            sellerName: product.seller?.businessName ?? '',
-                                            onPlusTap: () {},
+                                            sellerName:
+                                                product.seller?.businessName ??
+                                                    '',
+                                            onPlusTap: () {
+                                              context.mapProvider
+                                                  .setEntityMarker(
+                                                      product.seller!);
+                                              Navigator.pushNamed(context,
+                                                  DetailSellerScreen.routeName);
+                                            },
                                           ),
                                         );
                                       },

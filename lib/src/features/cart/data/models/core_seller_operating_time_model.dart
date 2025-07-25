@@ -11,7 +11,7 @@ class CoreSellerOperatingTimeModel extends CoreSellerOperatingTime {
   CoreSellerOperatingTimeModel.fromMap(DataMap map)
       : super(
           close: map['close'] as String,
-          days: [map['days'] as String],
+          days: List<String>.from(map['days'] as List),
           open: map['open'] as String,
         );
 }

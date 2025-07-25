@@ -62,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               context.homeProvider.initNews(state.listNews);
               context.homeBloc.add(const GetRecommendProductEvent());
             } else if (state is GetRecommendProductSuccess) {
+              debugPrint('zzz: ${state.products}');
               context.homeProvider.initRecommendProduct(state.products);
             }
           },

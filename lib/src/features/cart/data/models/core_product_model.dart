@@ -4,6 +4,7 @@ import 'core_seller_model.dart';
 
 class CoreProductModel extends CoreProduct {
   const CoreProductModel({
+    required super.id,
     required super.name,
     required super.category,
     required super.description,
@@ -19,6 +20,7 @@ class CoreProductModel extends CoreProduct {
 
   CoreProductModel.fromMap(DataMap map)
       : super(
+          id: map['id'] as String,
           name: map['Name'] as String,
           category: map['category'] as String,
           description: map['description'] as String,
@@ -29,11 +31,14 @@ class CoreProductModel extends CoreProduct {
           stock: map['stock'] as int,
           subCategory: map['subcategory'] as String,
           unit: map['unit'] as String,
-          seller: CoreSellerModel.fromMap(map['seller'] as DataMap? ?? {}),
+          seller: (map['seller'] == null)
+              ? null
+              : CoreSellerModel.fromMap(map['seller'] as DataMap),
         );
 
   CoreProductModel.fromEntity(CoreProduct entity)
       : super(
+          id: entity.id,
           name: entity.name,
           category: entity.category,
           description: entity.description,

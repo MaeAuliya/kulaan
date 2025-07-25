@@ -19,6 +19,7 @@ Future<void> initialization() async {
   await Future.wait([
     _initAuthentication(),
     _initHome(),
+    _initCart(),
   ]);
 }
 
@@ -90,6 +91,36 @@ Future<void> _initHome() async {
         () => const HomeLocalDataSourceImpl())
     ..registerLazySingleton<HomeRemoteDataSource>(
         () => HomeRemoteDataSourceImpl(
+              firestore: sl(),
+            ));
+}
+
+Future<void> _initCart() async {
+  sl
+    // Bloc
+    ..registerFactory(() => CartBloc(
+          getAllSeller: sl(),
+          getAllProduct: sl(),
+          getCurrentPosition: sl(),
+          getAllProductBySeller: sl(),
+          postItemToCart: sl(),
+        ))
+
+    // Usecases
+    ..registerLazySingleton(() => GetAllSeller(repository: sl()))
+    ..registerLazySingleton(() => GetAllProduct(repository: sl()))
+    ..registerLazySingleton(() => GetCurrentPosition(repository: sl()))
+    ..registerLazySingleton(() => GetAllProductBySeller(repository: sl()))
+    ..registerLazySingleton(() => PostItemToCart(repository: sl()))
+
+    // Repository
+    ..registerLazySingleton<CartRepository>(() => CartRepositoryImpl(
+          remoteDataSource: sl(),
+        ))
+
+    // Data Sources
+    ..registerLazySingleton<CartRemoteDataSource>(
+        () => CartRemoteDataSourceImpl(
               firestore: sl(),
             ));
 }

@@ -6,7 +6,8 @@ import '../../../../core/services/dependency_injection/injection_container.dart'
 import '../../../../core/shared/views/persistent_view.dart';
 import '../../../authentication/presentation/bloc/authentication_bloc.dart';
 import '../../../authentication/presentation/screens/profile_screen.dart';
-import '../../../cart/presentation/screens/cart_screen.dart';
+import '../../../cart/presentation/bloc/cart_bloc.dart';
+import '../../../cart/presentation/screens/map_screen.dart';
 import '../../../history/presentation/screens/history_screen.dart';
 import '../../../home/presentation/bloc/home_bloc.dart';
 import '../../../home/presentation/screens/home_screen.dart';
@@ -43,8 +44,8 @@ class NavigationController extends ChangeNotifier {
           create: (_) => BottomTabNavigator(
                 TabItem(
                   child: BlocProvider(
-                    create: (_) => sl<AuthenticationBloc>(),
-                    child: const CartScreen(),
+                    create: (_) => sl<CartBloc>(),
+                    child: const MapScreen(),
                   ),
                 ),
               ),
