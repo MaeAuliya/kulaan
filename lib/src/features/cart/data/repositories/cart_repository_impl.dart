@@ -8,9 +8,13 @@ import '../../domain/entities/core_cart.dart';
 import '../../domain/entities/core_cart_params.dart';
 import '../../domain/entities/core_product.dart';
 import '../../domain/entities/core_seller.dart';
+import '../../domain/entities/get_cart_seller_params.dart';
+import '../../domain/entities/post_order_params.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../datasources/cart_remote_data_source.dart';
 import '../models/core_cart_params_model.dart';
+import '../models/get_car_seller_params_model.dart';
+import '../models/post_order_params_model.dart';
 
 class CartRepositoryImpl implements CartRepository {
   final CartRemoteDataSource _remoteDataSource;
@@ -64,6 +68,29 @@ class CartRepositoryImpl implements CartRepository {
     try {
       final paramsModel = CoreCartParamsModel.fromEntity(params);
       final result = await _remoteDataSource.postItemToCart(paramsModel);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<CoreCart?> getUserCartBySeller(
+      GetCartSellerParams params) async {
+    try {
+      final paramsModel = GetCarSellerParamsModel.fromEntity(params);
+      final result = await _remoteDataSource.getUserCartBySeller(paramsModel);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
+
+  @override
+  ResultVoid createOrder(PostOrderParams params) async {
+    try {
+      final paramsModel = PostOrderParamsModel.fromEntity(params);
+      final result = await _remoteDataSource.createOrder(paramsModel);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure.fromException(e));

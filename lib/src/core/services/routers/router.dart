@@ -5,6 +5,7 @@ import '../../../features/authentication/presentation/bloc/authentication_bloc.d
 import '../../../features/authentication/presentation/screens/sign_in_screen.dart';
 import '../../../features/authentication/presentation/screens/splash_screen.dart';
 import '../../../features/cart/presentation/bloc/cart_bloc.dart';
+import '../../../features/cart/presentation/screens/cart_seller_screen.dart';
 import '../../../features/cart/presentation/screens/detail_seller_screen.dart';
 import '../../../features/home/presentation/bloc/home_bloc.dart';
 import '../../../features/home/presentation/screens/home_screen.dart';

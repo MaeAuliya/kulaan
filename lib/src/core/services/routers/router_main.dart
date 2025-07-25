@@ -34,6 +34,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
         settings: settings,
       );
+    case CartSellerScreen.routeName:
+      return _pageBuilder(
+        (_) => BlocProvider(
+          create: (_) => sl<CartBloc>(),
+          child: const CartSellerScreen(),
+        ),
+        settings: settings,
+      );
     case UserBottomNavigationCore.routeName:
       final int index = settings.arguments as int? ?? 0;
       return _pageBuilder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../features/cart/domain/entities/core_cart_item.dart';
 import '../extensions/context_extension.dart';
 import '../res/colours.dart';
 import '../res/typography.dart';
@@ -27,8 +28,9 @@ class CoreUtils {
               Container(
                 width: context.widthScale * 24,
                 height: context.widthScale * 24,
-                decoration:
-                    BoxDecoration(color: Colours.white, borderRadius: BorderRadius.circular(6)),
+                decoration: BoxDecoration(
+                    color: Colours.white,
+                    borderRadius: BorderRadius.circular(6)),
                 alignment: Alignment.center,
                 child: Icon(
                   isError ? Icons.close_rounded : Icons.check_rounded,
@@ -55,8 +57,10 @@ class CoreUtils {
               ),
             ],
           ),
-          backgroundColor: isError ? Colours.errorColor : Colours.successSnackBar,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          backgroundColor:
+              isError ? Colours.errorColor : Colours.successSnackBar,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           behavior: SnackBarBehavior.floating,
           // showCloseIcon: true,
           // closeIconColor: Colours.white,
@@ -101,5 +105,14 @@ class CoreUtils {
     }
 
     return null;
+  }
+
+  static int getTotalCount(List<CoreCartItem> cartItem) {
+    final totalPrice = cartItem.fold<double>(
+      0,
+      (sums, item) => sums + item.quantity,
+    );
+
+    return totalPrice.ceil();
   }
 }

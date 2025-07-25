@@ -40,3 +40,21 @@ final class PostItemToCartEvent extends CartEvent {
   @override
   List<Object?> get props => [params];
 }
+
+final class GetUserCartBySellerEvent extends CartEvent {
+  final GetCartSellerParams params;
+
+  const GetUserCartBySellerEvent(this.params);
+
+  @override
+  List<Object?> get props => [params];
+}
+
+final class CreateOrderEvent extends CartEvent {
+  final PostOrderParams params;
+
+  const CreateOrderEvent(this.params);
+
+  @override
+  List<Object?> get props => [params];
+}

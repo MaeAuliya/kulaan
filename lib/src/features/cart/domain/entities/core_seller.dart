@@ -4,6 +4,7 @@ import 'core_seller_location.dart';
 import 'core_seller_operating_time.dart';
 
 class CoreSeller extends Equatable {
+  final String id;
   final String userId;
   final String businessName;
   final String businessType;
@@ -12,6 +13,7 @@ class CoreSeller extends Equatable {
   final CoreSellerOperatingTime operatingTime;
 
   const CoreSeller({
+    required this.id,
     required this.userId,
     required this.businessName,
     required this.businessType,
@@ -22,6 +24,7 @@ class CoreSeller extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         userId,
         businessName,
         businessType,

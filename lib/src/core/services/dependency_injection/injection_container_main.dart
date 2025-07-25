@@ -104,6 +104,8 @@ Future<void> _initCart() async {
           getCurrentPosition: sl(),
           getAllProductBySeller: sl(),
           postItemToCart: sl(),
+          getUserCartBySeller: sl(),
+          createOrder: sl(),
         ))
 
     // Usecases
@@ -112,6 +114,8 @@ Future<void> _initCart() async {
     ..registerLazySingleton(() => GetCurrentPosition(repository: sl()))
     ..registerLazySingleton(() => GetAllProductBySeller(repository: sl()))
     ..registerLazySingleton(() => PostItemToCart(repository: sl()))
+    ..registerLazySingleton(() => GetUserCartBySeller(repository: sl()))
+    ..registerLazySingleton(() => CreateOrder(repository: sl()))
 
     // Repository
     ..registerLazySingleton<CartRepository>(() => CartRepositoryImpl(

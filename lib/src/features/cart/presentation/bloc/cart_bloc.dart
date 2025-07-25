@@ -6,10 +6,14 @@ import '../../domain/entities/core_cart.dart';
 import '../../domain/entities/core_cart_params.dart';
 import '../../domain/entities/core_product.dart';
 import '../../domain/entities/core_seller.dart';
+import '../../domain/entities/get_cart_seller_params.dart';
+import '../../domain/entities/post_order_params.dart';
+import '../../domain/usecases/create_order.dart';
 import '../../domain/usecases/get_all_product.dart';
 import '../../domain/usecases/get_all_product_by_seller.dart';
 import '../../domain/usecases/get_all_seller.dart';
 import '../../domain/usecases/get_current_position.dart';
+import '../../domain/usecases/get_user_cart_by_seller.dart';
 import '../../domain/usecases/post_item_to_cart.dart';
 
 part 'cart_event.dart';
@@ -21,6 +25,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final GetCurrentPosition _getCurrentPosition;
   final GetAllProductBySeller _getAllProductBySeller;
   final PostItemToCart _postItemToCart;
+  final GetUserCartBySeller _getUserCartBySeller;
+  final CreateOrder _createOrder;
 
   CartBloc({
     required GetAllSeller getAllSeller,
@@ -28,11 +34,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     required GetCurrentPosition getCurrentPosition,
     required GetAllProductBySeller getAllProductBySeller,
     required PostItemToCart postItemToCart,
+    required GetUserCartBySeller getUserCartBySeller,
+    required CreateOrder createOrder,
   })  : _getAllSeller = getAllSeller,
         _getAllProduct = getAllProduct,
         _getCurrentPosition = getCurrentPosition,
         _getAllProductBySeller = getAllProductBySeller,
         _postItemToCart = postItemToCart,
+        _getUserCartBySeller = getUserCartBySeller,
+        _createOrder = createOrder,
         super(const CartInitial()) {
     on<CartEvent>((event, emit) {
       emit(const CartLoading());
@@ -43,6 +53,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<ShowSellerBottomSheetEvent>(_showSellerBottomSheetHandler);
     on<GetAllProductBySellerEvent>(_getAllProductBySellerHandler);
     on<PostItemToCartEvent>(_postItemToCartHandler);
+    on<GetUserCartBySellerEvent>(_getUserCartBySellerHandler);
+    on<CreateOrderEvent>(_createOrderHandler);
   }
 
   Future<void> _getAllSellerHandler(
@@ -109,6 +121,36 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     result.fold(
       (failure) => emit(PostItemToCartError(failure.message)),
       (cart) => emit(PostItemToCartSuccess(cart)),
+    );
+  }
+
+  Future<void> _getUserCartBySellerHandler(
+    GetUserCartBySellerEvent event,
+    Emitter<CartState> emit,
+  ) async {
+    emit(const GetUserCartBySellerLoading());
+    final result = await _getUserCartBySeller.call(event.params);
+    result.fold(
+      (failure) => emit(GetUserCartBySellerError(failure.message)),
+      (cart) {
+        if (cart != null) {
+          return emit(GetUserCartBySellerSuccess(cart));
+        } else {
+          return emit(const GetUserCartBySellerEmpty());
+        }
+      },
+    );
+  }
+
+  Future<void> _createOrderHandler(
+    CreateOrderEvent event,
+    Emitter<CartState> emit,
+  ) async {
+    emit(const CreateOrderLoading());
+    final result = await _createOrder.call(event.params);
+    result.fold(
+      (failure) => emit(CreateOrderError(failure.message)),
+      (_) => emit(const CreateOrderSuccess()),
     );
   }
 }

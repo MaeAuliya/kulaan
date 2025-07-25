@@ -10,10 +10,18 @@ class CoreCartModel extends CoreCart {
     required super.items,
   });
 
+  CoreCartModel.empty()
+      : super(
+          sellerId: '',
+          totalAmount: 0,
+          userId: '',
+          items: [],
+        );
+
   CoreCartModel.fromMap(DataMap map)
       : super(
           sellerId: map['sellerId'] as String,
-          totalAmount: map['totalAmount'] as num? ?? 0,
+          totalAmount: map['totalAmount'] as num,
           userId: map['userId'] as String,
           items: (map['items'] as List)
               .map((item) => CoreCartItemModel.fromMap(item))

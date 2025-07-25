@@ -128,3 +128,46 @@ final class PostItemToCartError extends CartState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+final class GetUserCartBySellerSuccess extends CartState {
+  final CoreCart sellerCart;
+
+  const GetUserCartBySellerSuccess(this.sellerCart);
+
+  @override
+  List<Object?> get props => [sellerCart];
+}
+
+final class GetUserCartBySellerEmpty extends CartState {
+  const GetUserCartBySellerEmpty();
+}
+
+final class GetUserCartBySellerLoading extends CartState {
+  const GetUserCartBySellerLoading();
+}
+
+final class GetUserCartBySellerError extends CartState {
+  final String errorMessage;
+
+  const GetUserCartBySellerError(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+final class CreateOrderSuccess extends CartState {
+  const CreateOrderSuccess();
+}
+
+final class CreateOrderLoading extends CartState {
+  const CreateOrderLoading();
+}
+
+final class CreateOrderError extends CartState {
+  final String errorMessage;
+
+  const CreateOrderError(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
+}

@@ -5,6 +5,7 @@ import 'core_seller_operating_time_model.dart';
 
 class CoreSellerModel extends CoreSeller {
   const CoreSellerModel({
+    required super.id,
     required super.userId,
     required super.businessName,
     required super.businessType,
@@ -15,16 +16,19 @@ class CoreSellerModel extends CoreSeller {
 
   CoreSellerModel.fromMap(DataMap map)
       : super(
+          id: map['id'] as String? ?? '',
           userId: map['userId'] as String,
           businessName: map['businessName'] as String,
           businessType: map['businessType'] as String,
           description: map['description'] as String,
           location: CoreSellerLocationModel.fromMap(map['location'] as DataMap),
-          operatingTime: CoreSellerOperatingTimeModel.fromMap(map['operatingHours'] as DataMap),
+          operatingTime: CoreSellerOperatingTimeModel.fromMap(
+              map['operatingHours'] as DataMap),
         );
 
   CoreSellerModel.fromEntity(CoreSeller entity)
       : super(
+          id: entity.id,
           userId: entity.userId,
           businessName: entity.businessName,
           businessType: entity.businessType,
