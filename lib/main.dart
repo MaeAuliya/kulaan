@@ -16,6 +16,7 @@ import 'src/features/authentication/presentation/providers/user_provider.dart';
 import 'src/features/authentication/presentation/screens/splash_screen.dart';
 import 'src/features/cart/presentation/providers/cart_provider.dart';
 import 'src/features/cart/presentation/providers/map_provider.dart';
+import 'src/features/history/presentation/providers/order_provider.dart';
 import 'src/features/home/presentation/providers/home_provider.dart';
 import 'src/features/navigation/presentation/providers/navigation_controller.dart';
 
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => MapProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
         ChangeNotifierProvider(create: (_) => NavigationController()),
       ],
       child: MaterialApp(

@@ -7,6 +7,8 @@ import '../../features/authentication/presentation/providers/user_provider.dart'
 import '../../features/cart/presentation/bloc/cart_bloc.dart';
 import '../../features/cart/presentation/providers/cart_provider.dart';
 import '../../features/cart/presentation/providers/map_provider.dart';
+import '../../features/history/presentation/bloc/history_bloc.dart';
+import '../../features/history/presentation/providers/order_provider.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import '../../features/home/presentation/providers/home_provider.dart';
 import '../../features/navigation/presentation/providers/navigation_controller.dart';
@@ -44,6 +46,8 @@ extension ContextExtension on BuildContext {
 
   CartBloc get cartBloc => read<CartBloc>();
 
+  HistoryBloc get historyBloc => read<HistoryBloc>();
+
   // Providers
   AuthenticationProvider get authProvider => read<AuthenticationProvider>();
 
@@ -54,6 +58,8 @@ extension ContextExtension on BuildContext {
   MapProvider get mapProvider => read<MapProvider>();
 
   CartProvider get cartProvider => read<CartProvider>();
+
+  OrderProvider get orderProvider => read<OrderProvider>();
 
   ThemeNotifier get themeProvider => read<ThemeNotifier>();
 

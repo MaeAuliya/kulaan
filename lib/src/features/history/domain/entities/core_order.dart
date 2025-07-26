@@ -14,6 +14,8 @@ class CoreOrder extends Equatable {
   final num totalAmount;
   final List<CoreCartItem> items;
   final String status;
+  final String address;
+  final String sellerName;
 
   const CoreOrder({
     required this.orderNumber,
@@ -27,6 +29,8 @@ class CoreOrder extends Equatable {
     required this.totalAmount,
     required this.items,
     required this.status,
+    required this.address,
+    required this.sellerName,
   });
 
   @override
@@ -42,5 +46,7 @@ class CoreOrder extends Equatable {
         totalAmount,
         items,
         status,
+        address,
+        sellerName,
       ];
 }

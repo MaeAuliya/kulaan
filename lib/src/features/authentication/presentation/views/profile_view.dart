@@ -55,7 +55,7 @@ class ProfileView extends StatelessWidget {
                 IntrinsicWidth(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colours.verifyColor,
+                      color: Colours.blueVehicleDetailBackground,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: EdgeInsets.all(context.widthScale * 8),
@@ -69,60 +69,6 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: context.heightScale * 16,
-                ),
-                Container(
-                  width: context.width,
-                  decoration: BoxDecoration(
-                    color: Colours.blueVehicleDetailBackground,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colours.greyEmptyImage),
-                  ),
-                  padding: EdgeInsets.all(context.widthScale * 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        spacing: context.heightScale * 12,
-                        children: [
-                          CoreTypography.coreText(
-                            text: 'Beli',
-                            fontSize: 14,
-                            color: Colours.grey,
-                          ),
-                          CoreTypography.coreText(
-                            text: '100',
-                            color: Colours.primaryBlue,
-                            fontWeight: CoreTypography.semiBold,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: 1,
-                        height: context.heightScale * 72,
-                        color: Colours.greyEmptyImage,
-                      ),
-                      Column(
-                        spacing: context.heightScale * 12,
-                        children: [
-                          CoreTypography.coreText(
-                            text: 'Jual',
-                            fontSize: 14,
-                            color: Colours.grey,
-                          ),
-                          CoreTypography.coreText(
-                            text: '100',
-                            color: Colours.primaryBlue,
-                            fontWeight: CoreTypography.semiBold,
-                            fontSize: 24,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
             CoreButton(

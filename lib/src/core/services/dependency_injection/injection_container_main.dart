@@ -20,6 +20,7 @@ Future<void> initialization() async {
     _initAuthentication(),
     _initHome(),
     _initCart(),
+    _initOrder(),
   ]);
 }
 
@@ -125,6 +126,28 @@ Future<void> _initCart() async {
     // Data Sources
     ..registerLazySingleton<CartRemoteDataSource>(
         () => CartRemoteDataSourceImpl(
+              firestore: sl(),
+            ));
+}
+
+Future<void> _initOrder() async {
+  sl
+    // Bloc
+    ..registerFactory(() => HistoryBloc(
+          getUserOrders: sl(),
+        ))
+
+    // Usecases
+    ..registerLazySingleton(() => GetUserOrders(repository: sl()))
+
+    // Repository
+    ..registerLazySingleton<HistoryRepository>(() => HistoryRepositoryImpl(
+          remoteDataSource: sl(),
+        ))
+
+    // Data Sources
+    ..registerLazySingleton<HistoryRemoteDataSource>(
+        () => HistoryRemoteDataSourceImpl(
               firestore: sl(),
             ));
 }
